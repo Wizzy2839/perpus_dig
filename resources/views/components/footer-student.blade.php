@@ -1,56 +1,64 @@
-<footer style="background: #0f172a; color: #cbd5e1; padding: 40px 0 24px; margin-top: auto;">
-    <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 32px;">
-        
-        <!-- Brand Info -->
-        <div style="grid-column: span 1; @media(min-width: 992px){ grid-column: span 2; }">
-            <div style="display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 16px; letter-spacing: -0.5px;">
-                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37,99,168,0.4);">
-                    <i data-feather="book-open" style="color: #fff; width: 22px; height: 22px;"></i>
+<footer style="background: var(--color-primary-dark); color: #94a3b8; margin-top: auto;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 36px 28px 0;">
+
+        {{-- Top Row --}}
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 32px;">
+
+            {{-- Brand --}}
+            <div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ asset('assets/image/logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">
+                    </div>
+                    <div>
+                        <div style="font-size: 15px; font-weight: 800; color: #fff; line-height: 1.2;">{{ \App\Models\Setting::get('library_name', 'Simbok') }}</div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 500;">{{ \App\Models\Setting::get('school_name', 'SMK PGRI 2 Ponorogo') }}</div>
+                    </div>
                 </div>
-                <span>E-Pustaka</span>
+                <p style="font-size: 13.5px; line-height: 1.7; opacity: 0.7; max-width: 280px;">Platform buku digital resmi perpustakaan sekolah. Pinjam buku dengan mudah, gratis tanpa biaya layanan.</p>
             </div>
-            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 16px; opacity: 0.8; max-width: 320px;">Platform buku digital resmi perpustakaan sekolah. Pinjam buku dengan mudah, gratis tanpa biaya layanan.</p>
-        </div>
 
-        <!-- Links -->
-        <div>
-            <h4 style="color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Layanan Kami</h4>
-            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; font-size: 14px;">
-                <li><a href="{{ route('student.dashboard') }}" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#cbd5e1'">Beranda Utama</a></li>
-                <li><a href="{{ route('student.catalog.index') }}" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#cbd5e1'">Katalog Buku Digital</a></li>
-                <li><a href="{{ route('student.loans.index') }}" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#cbd5e1'">Lacak Peminjaman</a></li>
-            </ul>
-        </div>
-        
-        <!-- Support Links -->
-        <div>
-            <h4 style="color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Dukungan</h4>
-            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; font-size: 14px;">
-                <li><a href="{{ route('student.profile.index') }}" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#cbd5e1'">Pengaturan Akun</a></li>
-                <li><a href="javascript:void(0)" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#cbd5e1'">Syarat & Ketentuan</a></li>
-                <li><a href="javascript:void(0)" style="color: #cbd5e1; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#cbd5e1'">Tata Tertib Perpustakaan</a></li>
-            </ul>
-        </div>
-
-        <!-- Contact Info -->
-        <div>
-            <h4 style="color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;">Hubungi Admin</h4>
-            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; font-size: 14px;">
-                <li style="display: flex; gap: 10px; align-items: flex-start; opacity: 0.9;">
-                    <i data-feather="map-pin" style="width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;"></i>
-                    <span style="line-height: 1.5;">Gedung Perpustakaan Utama<br>Jam Operasional:<br>Senin - Jumat (07.00 - 15.00)</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Copyright -->
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; font-size: 13.5px; opacity: 0.8;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-            <div>&copy; {{ date('Y') }} E-Pustaka Digital System. Seluruh Hak Cipta Dilindungi Undang-Undang.</div>
-            <div style="display: flex; gap: 24px; align-items: center;">
-                <span>v1.0.0</span>
+            {{-- Navigation --}}
+            <div>
+                <h4 style="color: #fff; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px;">Navigasi</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px;">
+                    <li><a href="{{ route('student.dashboard') }}" style="color: #94a3b8; text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Beranda</a></li>
+                    <li><a href="{{ route('student.catalog.index') }}" style="color: #94a3b8; text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Katalog Buku</a></li>
+                    <li><a href="{{ route('student.loans.index') }}" style="color: #94a3b8; text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Riwayat Pinjaman</a></li>
+                </ul>
             </div>
+
+            {{-- Akun --}}
+            <div>
+                <h4 style="color: #fff; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px;">Akun</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px;">
+                    <li><a href="{{ route('student.profile.index') }}" style="color: #94a3b8; text-decoration: none; transition: color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">Pengaturan Profil</a></li>
+                    <li><a href="javascript:void(0)" style="color: #94a3b8; text-decoration: none;">Syarat & Ketentuan</a></li>
+                    <li><a href="javascript:void(0)" style="color: #94a3b8; text-decoration: none;">Tata Tertib</a></li>
+                </ul>
+            </div>
+
+            {{-- Jam Operasional --}}
+            <div>
+                <h4 style="color: #fff; font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px;">Jam Layanan</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+                    <div style="display: flex; align-items: center; gap: 9px;">
+                        <i data-feather="clock" style="width: 14px; height: 14px; flex-shrink: 0; color: rgba(255,255,255,0.4);"></i>
+                        Senin – Jumat
+                    </div>
+                    <div style="font-size: 14px; font-weight: 700; color: #fff; padding-left: 23px;">07.00 – 15.00</div>
+                    <div style="display: flex; align-items: center; gap: 9px; margin-top: 4px;">
+                        <i data-feather="map-pin" style="width: 14px; height: 14px; flex-shrink: 0; color: rgba(255,255,255,0.4);"></i>
+                        Gedung Perpustakaan
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Bottom Bar --}}
+        <div style="border-top: 1px solid rgba(255,255,255,0.08); padding: 16px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12.5px;">
+            <span>&copy; {{ date('Y') }} {{ \App\Models\Setting::get('library_name', 'Simbok') }}. Hak Cipta Dilindungi.</span>
+            <span style="opacity: .5;">v1.0.0 &bull; Powered by Laravel</span>
         </div>
     </div>
 </footer>

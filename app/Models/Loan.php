@@ -3,7 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $book_id
+ * @property \Carbon\Carbon $loan_date
+ * @property \Carbon\Carbon $due_date
+ * @property \Carbon\Carbon|null $return_date
+ * @property string $status
+ * @property string|null $notes
+ * @property int $fine_amount
+ */
 class Loan extends Model
 {
     protected $fillable = [
@@ -35,13 +47,13 @@ class Loan extends Model
 
     public function isOverdue(): bool
     {
-        return $this->status === 'approved' && $this->due_date->isPast();
+        return (in_array($this->status, ['approved', 'overdue']) && $this->due_date && $this->due_date->isPast());
     }
 
     public function daysOverdue(): int
     {
         if (!$this->isOverdue()) return 0;
-        return now()->diffInDays($this->due_date);
+        return abs((int) now()->startOfDay()->diffInDays($this->due_date->startOfDay()));
     }
 
     public function calculateFine(): int

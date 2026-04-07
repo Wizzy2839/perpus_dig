@@ -55,8 +55,15 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--color-border);">
                         <div>
                             <div style="font-size: 11px; color: var(--color-muted);">Tersedia</div>
-                            <div style="font-weight: 700; font-size: 14px; {{ $book->isAvailable() ? 'color: var(--color-success);' : 'color: var(--color-danger);' }}">
-                                {{ $book->availableStock() }} / {{ $book->stock }}
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <div style="font-weight: 700; font-size: 14px; {{ $book->isAvailable() ? 'color: var(--color-success);' : 'color: var(--color-danger);' }}">
+                                    {{ $book->availableStock() }} / {{ $book->stock }}
+                                </div>
+                                @if($book->availableStock() == 0)
+                                    <span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: #fee2e2; color: #dc2626; font-weight: 700;">HABIS</span>
+                                @elseif($book->availableStock() <= 2)
+                                    <span style="font-size: 10px; padding: 2px 6px; border-radius: 4px; background: #fef3c7; color: #d97706; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;"><i data-feather="alert-triangle" style="width: 10px; height: 10px;"></i> MENIPIS</span>
+                                @endif
                             </div>
                         </div>
                         <div style="display: flex; gap: 4px;">

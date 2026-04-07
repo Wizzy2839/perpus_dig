@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sistem Perpustakaan Digital Sekolah">
-    <title>@yield('title', 'Dashboard') — Perpustakaan Digital</title>
+    <title>@yield('title', 'Dashboard') — {{ \App\Models\Setting::get('library_name', 'Simbok') }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/image/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -244,38 +245,37 @@
         .search-input-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--color-muted); width: 16px; height: 16px; pointer-events: none; }
         .search-input-wrap .form-control { padding-left: 36px; }
 
-        /* Modal Overlay */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--transition); }
+        /* Modal Overlay (SweetAlert Style) */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--transition); }
         .modal-overlay.open { opacity: 1; pointer-events: all; }
-        .modal { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-lg); width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; margin: 16px; transform: translateY(10px); transition: transform var(--transition); }
-        .modal-overlay.open .modal { transform: translateY(0); }
-        .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; justify-content: space-between; }
-        .modal-header h3 { font-size: 16px; font-weight: 600; }
-        .modal-body { padding: 20px 24px; }
-        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--color-border); display: flex; justify-content: flex-end; gap: 8px; }
-
-        .btn-close { background: none; border: none; cursor: pointer; color: var(--color-muted); display: flex; align-items: center; padding: 4px; border-radius: 4px; transition: color var(--transition); }
-        .btn-close:hover { color: var(--color-text); }
-        .btn-close svg { width: 18px; height: 18px; }
+        .modal { background: #fff; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04); width: 100%; max-width: 420px; margin: 20px; transform: scale(0.9) translateY(20px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; overflow: hidden; }
+        .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+        .modal-icon-wrapper { margin: 32px auto 16px; width: 80px; height: 80px; border-radius: 50%; background: #EFF6FF; border: 4px solid #DBEAFE; color: var(--color-primary); display: flex; align-items: center; justify-content: center; }
+        .modal-icon-wrapper svg { width: 40px; height: 40px; stroke-width: 1.5; }
+        .modal-body { padding: 0 32px 32px; }
+        .modal-body h3 { font-size: 22px; font-weight: 800; color: var(--color-text); margin-bottom: 12px; }
+        .modal-body p { font-size: 14.5px; line-height: 1.6; color: var(--color-muted); }
+        .modal-footer { padding: 24px 32px 32px; display: flex; justify-content: center; gap: 12px; background: #fff; }
+        .modal-footer .btn { padding: 12px 24px; font-size: 14.5px; font-weight: 700; border-radius: 8px; width: 100%; justify-content: center; }
+        .modal-footer .btn-ghost { background: #f1f5f9; border-color: transparent; color: #475569; }
+        .modal-footer .btn-ghost:hover { background: #e2e8f0; color: #1e293b; }
 
         /* Availability chip */
         .avail-chip { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
         .avail-chip.available   { background: #dcfce7; color: #16a34a; }
         .avail-chip.unavailable { background: #fee2e2; color: #dc2626; }
 
-        /* Toasts */
-        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
-        .toast { width: 340px; background: #fff; border-radius: var(--radius); padding: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.12); display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--color-border); border-left: 4px solid var(--color-primary); transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; }
+        /* Toasts (SweetAlert Toast Style) */
+        .toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; pointer-events: none; }
+        .toast { width: auto; min-width: 300px; max-width: 400px; background: #fff; border-radius: 8px; padding: 14px 20px; box-shadow: 0 10px 30px rgba(0,0,0,.1); display: flex; align-items: center; gap: 14px; transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: auto; }
         .toast.show { transform: translateX(0); opacity: 1; }
-        .toast.toast-success { border-left-color: var(--color-success); }
-        .toast.toast-error { border-left-color: var(--color-danger); }
-        .toast-icon { padding-top: 2px; }
+        .toast-icon { padding: 0; display: flex; align-items: center; justify-content: center; }
         .toast.toast-success .toast-icon { color: var(--color-success); }
         .toast.toast-error .toast-icon { color: var(--color-danger); }
-        .toast-content { flex: 1; }
-        .toast-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--color-text); }
+        .toast-content { flex: 1; margin: 0; }
+        .toast-title { font-size: 14px; font-weight: 700; color: var(--color-text); margin-bottom: 2px; }
         .toast-msg { font-size: 13px; color: var(--color-muted); line-height: 1.4; }
-        .toast-close { background: none; border: none; cursor: pointer; color: var(--color-muted); padding: 2px; transition: color .2s; }
+        .toast-close { background: none; border: none; cursor: pointer; color: var(--color-muted); padding: 0; margin-left: 8px; transition: color .2s; display: flex; align-items: center; }
         .toast-close:hover { color: var(--color-text); }
 
         /* Student Navbar E-Commerce Style */
@@ -311,31 +311,28 @@
         }
         
         /* Global App Preloader CSS */
-        #global-preloader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #ffffff; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease; }
-        #global-preloader.loaded { opacity: 0; visibility: hidden; }
-        .book-preloader { position: relative; width: 64px; height: 64px; perspective: 200px; margin-bottom: 24px; }
-        .book-preloader .page { width: 32px; height: 48px; background: var(--color-primary); position: absolute; top: 8px; border-radius: 2px 4px 4px 2px; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); transform-origin: left center; animation: pageTurn 1.2s infinite linear; }
-        .book-preloader .page:nth-child(1) { right: 50%; transform-origin: right center; animation: pageTurnLeft 1.2s infinite linear; background: var(--color-primary-light); }
-        .book-preloader .page:nth-child(2) { left: 50%; }
-        .book-preloader .page:nth-child(3) { left: 50%; animation-delay: 0.4s; }
-        .book-preloader .page:nth-child(4) { left: 50%; animation-delay: 0.8s; }
-        @keyframes pageTurn { 0% { transform: rotateY(0deg); opacity: 1; } 49% { opacity: 1; } 50% { transform: rotateY(-180deg); opacity: 0; } 100% { transform: rotateY(-180deg); opacity: 0; } }
-        @keyframes pageTurnLeft { 0% { transform: rotateY(0deg); opacity: 0; } 49% { opacity: 0; } 50% { transform: rotateY(180deg); opacity: 1; } 100% { transform: rotateY(180deg); opacity: 1; } }
-        .preloader-text { font-size: 13px; font-weight: 700; color: var(--color-primary-dark); text-transform: uppercase; letter-spacing: 2px; animation: pulse 1.5s infinite ease-in-out; }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        #global-preloader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #ffffff; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease-out, visibility 0.5s ease-out; }
+        #global-preloader.loaded { opacity: 0; visibility: hidden; pointer-events: none; }
+        .books-spinner { position: relative; width: 70px; height: 70px; margin-bottom: 24px; }
+        .books-spinner::before, .books-spinner::after { content: ''; position: absolute; border-radius: 50%; border: 3px solid transparent; }
+        .books-spinner::before { top: 0; left: 0; right: 0; bottom: 0; border-top-color: var(--color-primary); border-right-color: var(--color-primary-light); animation: spinOuter 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
+        .books-spinner::after { top: 12px; left: 12px; right: 12px; bottom: 12px; border-bottom-color: var(--color-primary-light); border-left-color: var(--color-primary); opacity: 0.8; animation: spinInner 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite alternate; }
+        .books-spinner-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--color-primary); width: 24px; height: 24px; animation: pulseIcon 2s ease-in-out infinite; }
+        @keyframes spinOuter { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spinInner { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+        @keyframes pulseIcon { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; } }
+        .preloader-text { font-size: 14px; font-weight: 800; color: var(--color-primary-dark); text-transform: uppercase; letter-spacing: 3px; animation: pulseText 2s ease-in-out infinite; }
+        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
     </style>
     @stack('styles')
 </head>
 <body class="{{ auth()->check() && !auth()->user()->isAdmin() ? 'layout-student' : 'layout-admin' }}">
     <!-- Global Preloader UI -->
     <div id="global-preloader">
-        <div class="book-preloader">
-            <div class="page"></div>
-            <div class="page"></div>
-            <div class="page"></div>
-            <div class="page"></div>
+        <div class="books-spinner">
+            <i data-feather="book-open" class="books-spinner-icon"></i>
         </div>
-        <div class="preloader-text">Memuat Sistem...</div>
+        <div class="preloader-text">SIMBOK</div>
     </div>
     @if(auth()->check() && !auth()->user()->isAdmin())
         <!-- STUDENT NAVBAR (TOP) -->
@@ -344,12 +341,12 @@
         <!-- ADMIN SIDEBAR (LEFT) -->
         <aside class="sidebar" id="sidebar">
         <div class="sidebar-brand">
-            <div class="sidebar-brand-icon">
-                <i data-feather="book-open"></i>
+            <div class="sidebar-brand-icon" style="background: #fff; padding: 3px; overflow: hidden;">
+                <img src="{{ asset('assets/image/logo.png') }}" alt="Logo Simbok" style="width: 34px; height: 34px; object-fit: contain;">
             </div>
             <div class="sidebar-brand-text">
-                <h1>Perpustakaan<br>Digital</h1>
-                <p>{{ \App\Models\Setting::get('school_name', 'Sekolah') }}</p>
+                <h1>{{ \App\Models\Setting::get('library_name', 'Simbok') }}</h1>
+                <p>{{ \App\Models\Setting::get('school_name', 'SMK PGRI 2 Ponorogo') }}</p>
             </div>
         </div>
 
@@ -397,7 +394,7 @@
             <div class="layout-student-header">
                 <div class="container" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
                     <div>
-                        <h1>@yield('page-title', 'Katalog Buku')</h1>
+                        <h1>@yield('page-title', 'Beranda')</h1>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         @yield('topbar-actions')
@@ -448,19 +445,17 @@
         @endif
     </div>
 
-    <!-- UI CONFIRM MODAL -->
+    <!-- UI CONFIRM MODAL (SWEETALERT REDESIGN) -->
     <div id="uiConfirmModal" class="modal-overlay">
-        <div class="modal" style="max-width: 400px;">
-            <div class="modal-header">
-                <h3>Konfirmasi Tindakan</h3>
-                <button class="btn-close" onclick="document.getElementById('uiConfirmModal').classList.remove('open')">
-                    <i data-feather="x"></i>
-                </button>
+        <div class="modal">
+            <div class="modal-icon-wrapper">
+                <i data-feather="help-circle"></i>
             </div>
             <div class="modal-body">
-                <p id="uiConfirmMsg" style="font-size: 14px; line-height: 1.5;"></p>
+                <h3>Konfirmasi Tindakan</h3>
+                <p id="uiConfirmMsg"></p>
             </div>
-            <div class="modal-footer" style="background: #f8fafc;">
+            <div class="modal-footer">
                 <button class="btn btn-ghost" onclick="document.getElementById('uiConfirmModal').classList.remove('open')">Batal</button>
                 <button class="btn btn-primary" id="uiConfirmYesBtn">Ya, Lanjutkan</button>
             </div>
